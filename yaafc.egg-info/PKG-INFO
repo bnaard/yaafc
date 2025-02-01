@@ -1,3 +1,26 @@
+Metadata-Version: 2.1
+Name: yaafc
+Version: 0.0.1
+Summary: This is a template repository for Python projects that use uv for their dependency management.
+Author-email: Bnaard <bnaard@gmx.net>
+Project-URL: Homepage, https://bnaard.github.io/yaafc/
+Project-URL: Repository, https://github.com/bnaard/yaafc
+Project-URL: Documentation, https://bnaard.github.io/yaafc/
+Keywords: python
+Classifier: Intended Audience :: Developers
+Classifier: Programming Language :: Python
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Programming Language :: Python :: 3.13
+Classifier: Topic :: Software Development :: Libraries :: Python Modules
+Requires-Python: <4.0,>=3.9
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: reflex>=0.6.7
+
 # yaafc
 
 [![Release](https://img.shields.io/github/v/release/bnaard/yaafc)](https://img.shields.io/github/v/release/bnaard/yaafc)
