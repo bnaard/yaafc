@@ -5,7 +5,7 @@ description = "This is a template repository for Python projects that use uv for
 authors = [{ name = "Bnaard", email = "bnaard@gmx.net" }]
 readme = "README.md"
 keywords = ['python']
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10,<4.0"
 classifiers = [
     "Intended Audience :: Developers",
     "Programming Language :: Python",
@@ -18,7 +18,7 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "reflex>=0.6.7",
+    "reflex>=0.7.1",
 ]
 
 [project.urls]

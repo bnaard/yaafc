@@ -3,6 +3,9 @@ from pathlib import Path
 from typing import ClassVar
 
 import reflex as rx
+from reflex.components.datadisplay.dataeditor import (
+    DataEditorTheme,
+)
 
 from yaafc.utilities.colors import rgba_hex
 from yaafc.utilities.humanbytes import HumanBytes
@@ -115,38 +118,73 @@ class DataEditorState_HP(rx.State):
         self.clicked_data = f"Cell clicked: {pos}"
 
 
-def get_data_editor_theme(dark: bool = False):
-    return {
-        "accentColor": rgba_hex("accent", 10, dark=dark),  # "#8c96ff"
-        "accentLight": rgba_hex("accent", 10, dark=dark, alpha=True),
-        "accentFg": rgba_hex("accent", 2, dark=dark),
-        "textDark": rgba_hex("accent", 12, dark=dark),  # "#ff0000", #"#ffffff",
-        "textMedium": rgba_hex("accent", 11, dark=dark),  # "#b8b8b8",
-        "textLight": rgba_hex("accent", 11, dark=dark, alpha=True),  # "#a0a0a0",
-        "textBubble": rgba_hex("accent", 12, dark=dark),  # "#ffffff",
-        "bgIconHeader": rgba_hex("accent", 1, dark=dark),  # "#b8b8b8",
-        "fgIconHeader": rgba_hex("gray", 1, dark=dark),  # "#000000",
-        "textHeader": rgba_hex("accent", 11, dark=dark),  # "#a1a1a1",
-        "textHeaderSelected": rgba_hex("gray", 12, dark=dark),  # "#000000",
-        "textGroupHeader": rgba_hex("gray", 11, dark=dark),  # "#000000",
-        "bgCell": rgba_hex("accent", 1, dark=dark),  # "#16161b",
-        "bgCellMedium": rgba_hex("accent", 2, dark=dark),  # "#202027",
-        "bgHeader": rgba_hex("accent", 1, dark=dark),  # "#212121",
-        "bgHeaderHasFocus": rgba_hex("gray", 1, dark=dark),  # "#474747",
-        "bgHeaderHovered": rgba_hex("gray", 2, dark=dark),  # "#404040",
-        "bgBubble": rgba_hex("gray", 1, dark=dark),  # "#212121",
-        "bgBubbleSelected": rgba_hex("gray", 2, dark=dark),  # "#000000",
-        "bgSearchResult": rgba_hex("accent", 2, dark=dark),  # "#423c24",
-        "borderColor": rgba_hex("accent", 7, dark=dark),  # "rgba(225,225,225,0.2)",
-        "drilldownBorder": rgba_hex("accent", 6, dark=dark),  # "rgba(225,225,225,0.4)",
-        "linkColor": rgba_hex("gray", 11, dark=dark),  # "#4F5DFF",
-        "cellHorizontalPadding": 10,
-        "cellVerticalPadding": 2,
-        "lineHeight": 10,
-        "headerFontStyle": "bold 14px",
-        "baseFontStyle": "13px",
-        "fontFamily": "Inter, Roboto, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, noto, arial, sans-serif",
-    }
+def get_data_editor_theme(dark: bool = False) -> DataEditorTheme:
+    theme = DataEditorTheme()
+    theme.accent_color = rgba_hex("accent", 10, dark=dark)
+    theme.accent_fg = rgba_hex("accent", 2, dark=dark)
+    theme.accent_light = rgba_hex("accent", 10, dark=dark, alpha=True)
+    theme.base_font_style = "13px"
+    theme.bg_bubble = rgba_hex("gray", 1, dark=dark)
+    theme.bg_bubble_selected = rgba_hex("gray", 2, dark=dark)
+    theme.bg_cell = rgba_hex("accent", 1, dark=dark)
+    theme.bg_cell_medium = rgba_hex("accent", 2, dark=dark)
+    theme.bg_header = rgba_hex("accent", 1, dark=dark)
+    theme.bg_header_has_focus = rgba_hex("gray", 1, dark=dark)
+    theme.bg_header_hovered = rgba_hex("gray", 2, dark=dark)
+    theme.bg_icon_header = rgba_hex("accent", 1, dark=dark)
+    theme.bg_search_result = rgba_hex("accent", 2, dark=dark)
+    theme.border_color = rgba_hex("accent", 7, dark=dark)
+    theme.cell_horizontal_padding = 10
+    theme.cell_vertical_padding = 2
+    theme.drilldown_border = rgba_hex("accent", 6, dark=dark)
+    theme.editor_font_size = "13px"
+    theme.fg_icon_header = rgba_hex("gray", 1, dark=dark)
+    theme.font_family = "Inter, Roboto, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, noto, arial, sans-serif"
+    theme.header_bottom_border_color = rgba_hex("accent", 8, dark=dark)
+    theme.header_font_style = "bold 14px"
+    theme.horizontal_border_color = rgba_hex("accent", 8, dark=dark)
+    theme.line_height = "10"
+    theme.link_color = rgba_hex("gray", 11, dark=dark)
+    theme.text_bubble = rgba_hex("accent", 12, dark=dark)
+    theme.text_dark = rgba_hex("accent", 12, dark=dark)
+    theme.text_group_header = rgba_hex("gray", 11, dark=dark)
+    theme.text_header = rgba_hex("accent", 11, dark=dark)
+    theme.text_header_selected = rgba_hex("gray", 12, dark=dark)
+    theme.text_light = rgba_hex("accent", 11, dark=dark, alpha=True)
+    theme.text_medium = rgba_hex("accent", 11, dark=dark)
+    return theme
+
+    # return {
+    #     "accentColor": rgba_hex("accent", 10, dark=dark),  # "#8c96ff"
+    #     "accentLight": rgba_hex("accent", 10, dark=dark, alpha=True),
+    #     "accentFg": rgba_hex("accent", 2, dark=dark),
+    #     "textDark": rgba_hex("accent", 12, dark=dark),  # "#ff0000", #"#ffffff",
+    #     "textMedium": rgba_hex("accent", 11, dark=dark),  # "#b8b8b8",
+    #     "textLight": rgba_hex("accent", 11, dark=dark, alpha=True),  # "#a0a0a0",
+    #     "textBubble": rgba_hex("accent", 12, dark=dark),  # "#ffffff",
+    #     "bgIconHeader": rgba_hex("accent", 1, dark=dark),  # "#b8b8b8",
+    #     "fgIconHeader": rgba_hex("gray", 1, dark=dark),  # "#000000",
+    #     "textHeader": rgba_hex("accent", 11, dark=dark),  # "#a1a1a1",
+    #     "textHeaderSelected": rgba_hex("gray", 12, dark=dark),  # "#000000",
+    #     "textGroupHeader": rgba_hex("gray", 11, dark=dark),  # "#000000",
+    #     "bgCell": rgba_hex("accent", 1, dark=dark),  # "#16161b",
+    #     "bgCellMedium": rgba_hex("accent", 2, dark=dark),  # "#202027",
+    #     "bgHeader": rgba_hex("accent", 1, dark=dark),  # "#212121",
+    #     "bgHeaderHasFocus": rgba_hex("gray", 1, dark=dark),  # "#474747",
+    #     "bgHeaderHovered": rgba_hex("gray", 2, dark=dark),  # "#404040",
+    #     "bgBubble": rgba_hex("gray", 1, dark=dark),  # "#212121",
+    #     "bgBubbleSelected": rgba_hex("gray", 2, dark=dark),  # "#000000",
+    #     "bgSearchResult": rgba_hex("accent", 2, dark=dark),  # "#423c24",
+    #     "borderColor": rgba_hex("accent", 7, dark=dark),  # "rgba(225,225,225,0.2)",
+    #     "drilldownBorder": rgba_hex("accent", 6, dark=dark),  # "rgba(225,225,225,0.4)",
+    #     "linkColor": rgba_hex("gray", 11, dark=dark),  # "#4F5DFF",
+    #     "cellHorizontalPadding": 10,
+    #     "cellVerticalPadding": 2,
+    #     "lineHeight": 10,
+    #     "headerFontStyle": "bold 14px",
+    #     "baseFontStyle": "13px",
+    #     "fontFamily": "Inter, Roboto, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, noto, arial, sans-serif",
+    # }
 
 
 def file_list() -> rx.Component:
