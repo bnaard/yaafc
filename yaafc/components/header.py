@@ -3,7 +3,7 @@ import reflex as rx
 
 def header():
     return rx.flex(
-        rx.heading("YAAFC", size="6", color=rx.color("accent", 11)),
+        rx.heading("YAAFC", size="6", color=rx.color("accent", 11), padding_left="0.2em"),
         rx.spacer(),
         rx.hstack(
             rx.link(
@@ -17,8 +17,10 @@ def header():
         flex_direction=["column", "column", "row", "row", "row"],
         spacing="1",
         width="100%",
-        min_height="3em",
+        # min_height="3em",
         align="center",
         margin="0em",
         padding="0em",
+        padding_top="0.3em",
+        padding_bottom="1em",
     )

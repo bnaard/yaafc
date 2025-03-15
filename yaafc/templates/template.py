@@ -8,7 +8,7 @@ from yaafc.templates.main import main_template
 
 
 def template(
-    template: Literal["default", "main"] | None = "default",
+    template: Literal["main"] | None = "main",
     route: str | None = None,
     title: str | None = None,
     description: str | None = None,

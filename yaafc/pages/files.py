@@ -6,11 +6,12 @@ from yaafc.templates.template import template
 
 @template(template="main", route="/files", title="YAAFC")
 def files() -> rx.Component:
-    return rx.vstack(
+    return rx.box(
         native_file_list(),
         background_color=rx.Color("accent", 2),
         justify="center",
-        height="90vh",
         padding="0em",
         margin="0em",
+        height="100%",
+        # flex_grow="1",
     )

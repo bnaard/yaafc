@@ -52,11 +52,9 @@ def sidebar() -> rx.Component:
         sidebar_profile(),
         sidebar_footer(),
         flex_direction="column",
-        height="100vh",
-        border="solid",
-        border_color=rx.color("accent", 8),
-        border_width="1px",
+        height="100%",
         padding="0.3em",
         margin="0em",
         spacing="0",
+        style={"position": "sticky", "top": "0"},
     )

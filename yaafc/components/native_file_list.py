@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import ClassVar
+from typing import ClassVar, Union
 
 import reflex as rx
 
@@ -107,59 +107,31 @@ class FileListState(rx.State):
 
 
 def show_directory_table_entry(entry: list[str | int]) -> rx.Component:
+    def show_cell(content: str, min_width: Union[str, list[str]], max_width: Union[str, list[str]]) -> rx.Component:
+        return (
+            rx.table.cell(
+                content,
+                border_right="solid",
+                border_right_color=rx.color("accent", 4),
+                border_right_width="1px",
+                border_bottom="solid",
+                border_bottom_color=rx.color("accent", 4),
+                border_bottom_width="1px",
+                height="1em",
+                padding="5px",
+                padding_left="10px",
+                min_width=min_width,
+                max_width=max_width,
+            ),
+        )
+
     return rx.table.row(
-        rx.table.cell(
-            entry[0],
-            border_right="solid",
-            border_right_color=rx.color("accent", 4),
-            border_right_width="1px",
-            border_bottom="solid",
-            border_bottom_color=rx.color("accent", 4),
-            border_bottom_width="1px",
-            height="1em",
-            padding="5px",
-            padding_left="10px",
-            min_width="8em",
-            max_width="64em",
-        ),
-        rx.table.cell(
-            entry[1],
-            border_right="solid",
-            border_right_color=rx.color("accent", 4),
-            border_right_width="1px",
-            border_bottom="solid",
-            border_bottom_color=rx.color("accent", 4),
-            border_bottom_width="1px",
-            height="1em",
-            padding="5px",
-            min_width="4em",
-            max_width="12em",
-        ),
-        rx.table.cell(
-            "ll",
-            # arrow.get(entry[2]).format('YYYY-MM-DD'),
-            border_right="solid",
-            border_right_color=rx.color("accent", 4),
-            border_right_width="1px",
-            border_bottom="solid",
-            border_bottom_color=rx.color("accent", 4),
-            border_bottom_width="1px",
-            height="1em",
-            padding="5px",
-            min_width="4em",
-            max_width="5em",
-        ),
-        rx.table.cell(
-            "oo",
-            # arrow.get(entry[2]).format('HH:mm:ss ZZ'),
-            border_bottom="solid",
-            border_bottom_color=rx.color("accent", 4),
-            border_bottom_width="1px",
-            height="1em",
-            padding="5px",
-            min_width="4em",
-            max_width="5em",
-        ),
+        show_cell(entry[0], "8em", "64em"),
+        show_cell(entry[1], "4em", "12em"),
+        show_cell(entry[2], "4em", "12em"),
+        show_cell("ooo", "4em", "12em"),
+        # arrow.get(entry[2]).format('YYYY-MM-DD'),
+        # arrow.get(entry[2]).format('HH:mm:ss ZZ'),
     )
 
 
@@ -174,6 +146,8 @@ def show_directory_table_header() -> rx.Component:
                 border_bottom="solid",
                 border_bottom_color=rx.color("accent", 4),
                 border_bottom_width="1px",
+                background_color=rx.color("accent", 3),
+                style={"position": "sticky", "top": "0"},
             ),
             rx.table.column_header_cell(
                 "Size",
@@ -183,6 +157,8 @@ def show_directory_table_header() -> rx.Component:
                 border_bottom="solid",
                 border_bottom_color=rx.color("accent", 4),
                 border_bottom_width="1px",
+                background_color=rx.color("accent", 3),
+                style={"position": "sticky", "top": "0"},
             ),
             rx.table.column_header_cell(
                 "Changed Date",
@@ -192,12 +168,19 @@ def show_directory_table_header() -> rx.Component:
                 border_bottom="solid",
                 border_bottom_color=rx.color("accent", 4),
                 border_bottom_width="1px",
+                background_color=rx.color("accent", 3),
+                style={"position": "sticky", "top": "0"},
             ),
             rx.table.column_header_cell(
                 "Changed Time",
+                border_right="solid",
+                border_right_color=rx.color("accent", 4),
+                border_right_width="1px",
                 border_bottom="solid",
                 border_bottom_color=rx.color("accent", 4),
                 border_bottom_width="1px",
+                background_color=rx.color("accent", 3),
+                style={"position": "sticky", "top": "0"},
             ),
         ),
     )
@@ -206,8 +189,13 @@ def show_directory_table_header() -> rx.Component:
 def show_directory_table():
     return rx.table.root(
         show_directory_table_header(),
-        rx.table.body(rx.foreach(FileListState.data, show_directory_table_entry)),
+        rx.table.body(
+            rx.foreach(FileListState.data, show_directory_table_entry),
+            # style={"max-height": "100px", "overflow-y": "auto"},
+        ),
         width="100%",
+        height="100%",
+        style={"position": "relative"},
     )
 
 
@@ -260,13 +248,14 @@ def show_file_list_header() -> rx.Component:
 def native_file_list() -> rx.Component:
     return (
         rx.flex(
-            show_file_list_header(),
-            rx.scroll_area(
-                show_directory_table(),
-                type="auto",
-                scrollbars="vertical",
+            rx.box(
+                show_file_list_header(),
             ),
-            flex_direction="column",
+            rx.box(
+                show_directory_table(),
+                style={"height": "calc(100% - 4em)"},
+            ),
+            direction="column",
             border="solid",
             border_width="1px",
             border_color=rx.color("accent", 8),
