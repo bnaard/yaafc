@@ -4,7 +4,6 @@ import reflex as rx
 
 from yaafc.config.meta import default_meta
 from yaafc.states.theme_state import ThemeState
-from yaafc.templates.default import default_template
 from yaafc.templates.main import main_template
 
 
@@ -44,12 +43,7 @@ def template(
         # Get the meta tags for the page.
         all_meta = [*default_meta, *(meta or [])]
 
-        if template == "default":
-            templated_page = default_template(page_content)
-        elif template == "main":
-            templated_page = main_template(page_content)
-        else:
-            templated_page = default_template(page_content)
+        templated_page = main_template(page_content) if template == "main" else main_template(page_content)
 
         @rx.page(
             route=route,

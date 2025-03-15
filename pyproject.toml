@@ -18,7 +18,8 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 dependencies = [
-    "reflex>=0.7.1",
+    "arrow>=1.3.0",
+    "reflex>=0.7.2",
 ]
 
 [project.urls]
@@ -43,6 +44,20 @@ dev = [
 [build-system]
 requires = ["setuptools >= 61.0"]
 build-backend = "setuptools.build_meta"
+
+[tool.uv]
+
+[tool.poe.tasks]
+run.cmd             = "uv run reflex run"
+install.sequence    = [ { cmd = "uv sync" }, { cmd = "uv run pre-commit install" } ]
+check.sequence      = [ { cmd = "uv lock --locked" }, { cmd = "uv run pre-commit run -a" }, { cmd = "uv run mypy" }, { cmd = "uv run deptry ." } ]
+test.cmd            = "uv run python -m pytest --cov --cov-config=pyproject.toml --cov-report=xml"
+build.cmd           = "uvx --from build pyproject-build --installer uv"
+clean-build.cmd     = "uv run python -c \"import shutil; import os; shutil.rmtree('dist') if os.path.exists('dist') else None\""
+docs-test.cmd       = "uv run mkdocs build -s"
+docs.cmd            = "uv run mkdocs serve"
+docs-deploy.cmd     = "uv run mkdocs gh-deploy"
+
 
 [tool.setuptools]
 py-modules = ["yaafc"]

@@ -1,13 +1,13 @@
 import reflex as rx
 
-from yaafc.components.file_list import file_list
+from yaafc.components.native_file_list import native_file_list
 from yaafc.templates.template import template
 
 
-@template(template="main", route="/", title="YAAFC")
-def index() -> rx.Component:
+@template(template="main", route="/files", title="YAAFC")
+def files() -> rx.Component:
     return rx.vstack(
-        file_list(),
+        native_file_list(),
         background_color=rx.Color("accent", 2),
         justify="center",
         height="90vh",

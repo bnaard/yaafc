@@ -1,1 +1,4 @@
-from .index import index  # noqa: F401
+from .files import files
+from .index import index
+
+__all__ = ["files", "index"]

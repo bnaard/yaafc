@@ -154,38 +154,6 @@ def get_data_editor_theme(dark: bool = False) -> DataEditorTheme:
     theme.text_medium = rgba_hex("accent", 11, dark=dark)
     return theme
 
-    # return {
-    #     "accentColor": rgba_hex("accent", 10, dark=dark),  # "#8c96ff"
-    #     "accentLight": rgba_hex("accent", 10, dark=dark, alpha=True),
-    #     "accentFg": rgba_hex("accent", 2, dark=dark),
-    #     "textDark": rgba_hex("accent", 12, dark=dark),  # "#ff0000", #"#ffffff",
-    #     "textMedium": rgba_hex("accent", 11, dark=dark),  # "#b8b8b8",
-    #     "textLight": rgba_hex("accent", 11, dark=dark, alpha=True),  # "#a0a0a0",
-    #     "textBubble": rgba_hex("accent", 12, dark=dark),  # "#ffffff",
-    #     "bgIconHeader": rgba_hex("accent", 1, dark=dark),  # "#b8b8b8",
-    #     "fgIconHeader": rgba_hex("gray", 1, dark=dark),  # "#000000",
-    #     "textHeader": rgba_hex("accent", 11, dark=dark),  # "#a1a1a1",
-    #     "textHeaderSelected": rgba_hex("gray", 12, dark=dark),  # "#000000",
-    #     "textGroupHeader": rgba_hex("gray", 11, dark=dark),  # "#000000",
-    #     "bgCell": rgba_hex("accent", 1, dark=dark),  # "#16161b",
-    #     "bgCellMedium": rgba_hex("accent", 2, dark=dark),  # "#202027",
-    #     "bgHeader": rgba_hex("accent", 1, dark=dark),  # "#212121",
-    #     "bgHeaderHasFocus": rgba_hex("gray", 1, dark=dark),  # "#474747",
-    #     "bgHeaderHovered": rgba_hex("gray", 2, dark=dark),  # "#404040",
-    #     "bgBubble": rgba_hex("gray", 1, dark=dark),  # "#212121",
-    #     "bgBubbleSelected": rgba_hex("gray", 2, dark=dark),  # "#000000",
-    #     "bgSearchResult": rgba_hex("accent", 2, dark=dark),  # "#423c24",
-    #     "borderColor": rgba_hex("accent", 7, dark=dark),  # "rgba(225,225,225,0.2)",
-    #     "drilldownBorder": rgba_hex("accent", 6, dark=dark),  # "rgba(225,225,225,0.4)",
-    #     "linkColor": rgba_hex("gray", 11, dark=dark),  # "#4F5DFF",
-    #     "cellHorizontalPadding": 10,
-    #     "cellVerticalPadding": 2,
-    #     "lineHeight": 10,
-    #     "headerFontStyle": "bold 14px",
-    #     "baseFontStyle": "13px",
-    #     "fontFamily": "Inter, Roboto, -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui, helvetica neue, helvetica, Ubuntu, noto, arial, sans-serif",
-    # }
-
 
 def file_list() -> rx.Component:
     return (
