@@ -4,15 +4,19 @@ import reflex as rx
 from yaafc.templates.template import template
 
 
-@template(template="main", route="/", title="YAAFC")
-def index() -> rx.Component:
+@template(template="main", route="/404", title="YAAFC")
+def not_found_404() -> rx.Component:
     return rx.vstack(
         rx.flex(
-            rx.text("Imagine", font_size="3rem"),
+            rx.text("Oops! Page Not Found", font_size="3rem"),
             rx.text(
-                "a dashboard for the target system",
+                "It looks like the page you're looking for doesn't exist.",
                 color="gray",
                 font_size="2rem",
+            ),
+            rx.link(
+                rx.button("Go to Homepage"),
+                href="/",
             ),
             spacing="4",
             direction="column",
