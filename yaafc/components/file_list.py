@@ -285,29 +285,3 @@ def file_list() -> rx.Component:
 #         height="75vh",
 #         width="100%",
 #     )
-
-
-# rx.vstack(
-#     rx.card(
-#         "Card",
-#         width="100%",
-#         height="260px",
-#     ),
-#     grid_column="span 2",  # This makes the card span 2 columns
-# )
-
-# rx.grid(
-#     rx.foreach(
-#         rx.Var.range(12),
-#         lambda i: rx.card(f"Card {i + 1}", height="10vh"),
-#     ),
-#     gap="1rem",
-#     grid_template_columns=[
-#         "1fr",                # 1 column for mobile
-#         "repeat(2, 1fr)",     # 2 columns for tablet
-#         "repeat(2, 1fr)",     # 2 columns for small desktop
-#         "repeat(3, 1fr)",     # 3 columns for medium desktop
-#         "repeat(4, 1fr)",     # 4 columns for large desktop
-#     ],
-#     width="100%",
-# )
