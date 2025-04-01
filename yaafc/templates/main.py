@@ -2,14 +2,15 @@ from typing import Callable
 
 import reflex as rx
 
+# from yaafc.components.sidebar import sidebar
+import yaafc.ui as yui
 from yaafc.components.header import header
-from yaafc.components.sidebar import sidebar
 
 
 def main_template(page_content: Callable[[], rx.Component]) -> rx.Component:
     return rx.flex(
         rx.box(
-            sidebar(),
+            yui.sidebar(),
             height="100%",
             width="3em",
         ),

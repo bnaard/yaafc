@@ -2,8 +2,9 @@ from typing import Callable, Literal
 
 import reflex as rx
 
+from yaafc.config.constants import Colors
 from yaafc.config.meta import default_meta
-from yaafc.states.theme_state import ThemeState
+from yaafc.states.settings import Settings
 from yaafc.templates.main import main_template
 
 
@@ -57,11 +58,11 @@ def template(
             return rx.theme(
                 templated_page,
                 has_background=True,
-                accent_color=ThemeState.accent_color,
-                gray_color=ThemeState.gray_color,
-                radius=ThemeState.radius,
-                scaling=ThemeState.scaling,
-                panel_background=ThemeState.panel_background,
+                accent_color=Settings.theme["colors"][Colors.ACCENT]["name"],
+                gray_color=Settings.theme["colors"][Colors.GRAY]["name"],
+                radius=Settings.theme["styles"]["radius"],
+                scaling=Settings.theme["styles"]["scaling"],
+                panel_background=Settings.theme["styles"]["panel_background"],
             )
 
         return theme_wrap

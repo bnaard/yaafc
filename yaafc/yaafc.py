@@ -5,7 +5,3 @@ import reflex as rx
 from yaafc.pages import *  # noqa: F403
 
 app = rx.App()
-
-
-# app = rx.App()
-# app.add_page(index)
