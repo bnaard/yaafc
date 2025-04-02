@@ -1,5 +1,9 @@
 import reflex as rx
 
+import yaafc.ui as yui
+from yaafc.config import menus
+from yaafc.config.types import SideBarSection
+
 
 class SidebarLink(rx.Component):
     @classmethod
@@ -12,9 +16,11 @@ sidebar_link = SidebarLink.create
 
 class SidebarIcon(rx.Component):
     @classmethod
-    def create(cls, icon: str = "image", color: str = "accent", href: str = "/", *children, **props) -> rx.Component:
+    def create(
+        cls, icon: str = "image", color: str = yui.Colors.ACCENT, href: str = "/", *children, **props
+    ) -> rx.Component:
         props.setdefault("size", 26)
-        props.setdefault("color", rx.color(color, 10))
+        props.setdefault("color", yui.color(color, 10))
         props.setdefault("margin", "0.4em")
         return sidebar_link(
             rx.flex(
@@ -27,13 +33,6 @@ class SidebarIcon(rx.Component):
 
 
 sidebar_icon = SidebarIcon.create
-
-
-# def show_sidebar_item_icon(icon: str, color: str = "accent", href: str = "") -> rx.Component:
-#     return rx.link(
-#         rx.icon(icon, size=26, color=rx.color(color, 10), margin="0.4em"),
-#         href=href,
-#     )
 
 
 class IconStack(rx.Component):
@@ -80,34 +79,6 @@ class Logo(rx.Component):
 logo = Logo.create
 
 
-# def show_logo() -> rx.Component:
-#     def show_logo_light_dark(dark: bool = False) -> rx.Component:
-#         return rx.link(
-#             rx.image(
-#                 src="/logo.svg" if not dark else "/logo.svg",
-#                 width="100%",
-#                 height="100%",
-#                 fit="contain",
-#             ),
-#             height="2em",
-#             width="100%",
-#             justify="center",
-#             text_align="center",
-#             padding_x="0em",
-#             padding_top="0.2em",
-#             padding_bottom="0em",
-#             margin_bottom="0em",
-#             href="/",
-#         )
-
-#     return (
-#         rx.color_mode_cond(
-#             show_logo_light_dark(),
-#             show_logo_light_dark(dark=True),
-#         ),
-#     )
-
-
 class SectionLogo(rx.Component):
     @classmethod
     def create(cls, **props) -> rx.Component:
@@ -122,6 +93,17 @@ class SectionLogo(rx.Component):
 section_logo = SectionLogo.create
 
 
+class Section(rx.Component):
+    @classmethod
+    def create(cls, section: SideBarSection, *children, **props) -> rx.Component:
+        return icon_stack(
+            [sidebar_icon(icon=item.heroicon_icon_name, href=item.href) for item in section.items], *children, **props
+        )
+
+
+section = Section.create
+
+
 class SectionTools(rx.Component):
     @classmethod
     def create(cls, *children, **props) -> rx.Component:
@@ -134,16 +116,6 @@ class SectionTools(rx.Component):
 section_tools = SectionTools.create
 
 
-# def show_tools() -> rx.Component:
-#     return rx.vstack(
-#         show_sidebar_item_icon("bookmark", href="/projects"),
-#         show_sidebar_item_icon("folder-open-dot", href="/files"),
-#         padding="0em",
-#         margin="0em",
-#         spacing="1",
-#     )
-
-
 class SectionProfile(rx.Component):
     @classmethod
     def create(cls, *children, **props) -> rx.Component:
@@ -153,9 +125,6 @@ class SectionProfile(rx.Component):
 
 
 section_profile = SectionProfile.create
-
-# def show_profile() -> rx.Component:
-#     return rx.vstack(show_sidebar_item_icon("circle-user-round", href="/profile"), padding="0em", margin="0em")
 
 
 class SectionFooter(rx.Component):
@@ -183,10 +152,13 @@ class Sidebar(rx.ComponentState):
         return rx.flex(
             section_logo(),
             rx.box(height="1.2em"),
-            section_tools(),
+            section(section=menus.sidebar["Tools"]),
+            # section_tools(),
             rx.spacer(),
-            section_profile(),
-            section_footer(),
+            section(section=menus.sidebar["Profile"]),
+            section(section=menus.sidebar["Footer"]),
+            # section_profile(),
+            # section_footer(),
             **props,
         )
 
