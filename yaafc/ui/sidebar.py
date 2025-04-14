@@ -2,7 +2,7 @@ import reflex as rx
 
 import yaafc.ui as yui
 from yaafc.config import menus
-from yaafc.config.types import SideBarSection
+from yaafc.config.types import SidebarSection
 
 
 class SidebarLink(rx.Component):
@@ -95,48 +95,13 @@ section_logo = SectionLogo.create
 
 class Section(rx.Component):
     @classmethod
-    def create(cls, section: SideBarSection, *children, **props) -> rx.Component:
+    def create(cls, section: SidebarSection, *children, **props) -> rx.Component:
         return icon_stack(
             [sidebar_icon(icon=item.heroicon_icon_name, href=item.href) for item in section.items], *children, **props
         )
 
 
 section = Section.create
-
-
-class SectionTools(rx.Component):
-    @classmethod
-    def create(cls, *children, **props) -> rx.Component:
-        return icon_stack(
-            sidebar_icon("bookmark", href="/projects"),
-            sidebar_icon("folder-open-dot", href="/files"),
-        )
-
-
-section_tools = SectionTools.create
-
-
-class SectionProfile(rx.Component):
-    @classmethod
-    def create(cls, *children, **props) -> rx.Component:
-        return icon_stack(
-            sidebar_icon("circle-user-round", href="/profile"),
-        )
-
-
-section_profile = SectionProfile.create
-
-
-class SectionFooter(rx.Component):
-    @classmethod
-    def create(cls, *children, **props) -> rx.Component:
-        return icon_stack(
-            sidebar_icon("grid-3x3", href="/grid"),
-            sidebar_icon("settings", href="/settings"),
-        )
-
-
-section_footer = SectionFooter.create
 
 
 class Sidebar(rx.ComponentState):
@@ -153,12 +118,9 @@ class Sidebar(rx.ComponentState):
             section_logo(),
             rx.box(height="1.2em"),
             section(section=menus.sidebar["Tools"]),
-            # section_tools(),
             rx.spacer(),
             section(section=menus.sidebar["Profile"]),
             section(section=menus.sidebar["Footer"]),
-            # section_profile(),
-            # section_footer(),
             **props,
         )
 

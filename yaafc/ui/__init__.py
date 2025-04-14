@@ -1,6 +1,8 @@
 from ..config.constants import Colors
 from .colors import color
 from .sidebar import sidebar
+from .table import table
+from .widgets.file_list import file_list
 
 ACCENT = Colors.ACCENT
 BACKGROUND = Colors.BACKGROUND
@@ -30,5 +32,7 @@ __all__ = [
     "WARNING_CONTENT",
     "Colors",
     "color",
+    "file_list",
     "sidebar",
+    "table",
 ]

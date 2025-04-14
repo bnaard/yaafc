@@ -4,7 +4,7 @@ import reflex as rx
 
 # from yaafc.components.sidebar import sidebar
 import yaafc.ui as yui
-from yaafc.components.header import header
+from yaafc.ui.header import header
 
 
 def main_template(page_content: Callable[[], rx.Component]) -> rx.Component:

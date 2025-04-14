@@ -1,39 +1,53 @@
-from yaafc.config.types import SideBarMenuItem, SideBarSection
+from yaafc.config.types import HeaderMenuItem, SidebarMenuItem, SidebarSection
 
 sidebar = {
-    "Tools": SideBarSection(
+    "Tools": SidebarSection(
         name="Tools",
         items=[
-            SideBarMenuItem(
+            SidebarMenuItem(
                 heroicon_icon_name="bookmark",
+                label="Projects",
                 href="/projects",
             ),
-            SideBarMenuItem(
+            SidebarMenuItem(
                 heroicon_icon_name="folder-open-dot",
+                label="Files",
                 href="/files",
             ),
         ],
     ),
-    "Profile": SideBarSection(
+    "Profile": SidebarSection(
         name="Profile",
         items=[
-            SideBarMenuItem(
+            SidebarMenuItem(
                 heroicon_icon_name="circle-user-round",
+                label="Profile",
                 href="/profile",
             ),
         ],
     ),
-    "Footer": SideBarSection(
+    "Footer": SidebarSection(
         name="Footer",
         items=[
-            SideBarMenuItem(
+            SidebarMenuItem(
                 heroicon_icon_name="grid-3x3",
-                href="/grid",
+                label="Layout",
+                href="/layout",
             ),
-            SideBarMenuItem(
+            SidebarMenuItem(
                 heroicon_icon_name="settings",
+                label="Settings",
                 href="/settings",
             ),
         ],
     ),
 }
+
+
+header = [
+    HeaderMenuItem(
+        heroicon_icon_name="grid-3x3",
+        label="Docs",
+        href="/docs",
+    ),
+]

@@ -42,7 +42,7 @@ def show_card() -> rx.Component:
     )
 
 
-def show_grid(*components, **props) -> rx.Component:
+def show_layout(*components, **props) -> rx.Component:
     return rx.grid(
         *components,
         rx.foreach(rx.Var.range(16), lambda i: show_card()),
@@ -66,11 +66,11 @@ def show_grid(*components, **props) -> rx.Component:
     )
 
 
-@template(template="main", route="/grid", title="YAAFC")
-def grid() -> rx.Component:
+@template(template="main", route="/layout", title="YAAFC")
+def layout() -> rx.Component:
     return rx.flex(
         rx.card(width="15vw", background_color=rx.color("accent", 2)),
-        show_grid(spacing="4", width="100%", height="100%"),
+        show_layout(spacing="4", width="100%", height="100%"),
         direction="row",
         spacing="4",
     )

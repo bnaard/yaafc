@@ -22,12 +22,20 @@ class ThemeType:
 
 
 @dataclasses.dataclass
-class SideBarMenuItem:
+class SidebarMenuItem:
     heroicon_icon_name: str
+    label: str
     href: str
 
 
 @dataclasses.dataclass
-class SideBarSection:
+class SidebarSection:
     name: str
-    items: list[SideBarMenuItem]
+    items: list[SidebarMenuItem]
+
+
+@dataclasses.dataclass
+class HeaderMenuItem:
+    heroicon_icon_name: str
+    label: str
+    href: str
