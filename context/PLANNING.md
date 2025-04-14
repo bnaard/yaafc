@@ -90,8 +90,9 @@ yaafc/
 └── rx.config             # Reflex.dev configuration
 ```
 
-## Style Guidelines
+## 📎 Style & Conventions
 
+- **Use Python** as the primary language.
 - Follow PEP8 standards
 - Use type hints for all functions, for all function parameters and return values
 - Use type hints for all class attributes and variables
@@ -106,6 +107,11 @@ yaafc/
 - use tox-uv for testing
 - use deptry for dependency management
 - use mkdocs for documentation
+- use markdownlint for markdown linting
+- use mkdocstrings for generating documentation from docstrings
+- use pytest for testing
+- use pytest-cov for code coverage
+- use pytest-mock for mocking in tests
 
 ## Python Package Manager
 
@@ -126,3 +132,38 @@ Use uv for dependency management and poe for task management.
 - mkdocs
 - mkdocs-material
 - mkdocstrings[python]
+
+## AI Assistant Context
+
+### Webpages to fetch
+
+- [Reflex Documentation](https://reflex.dev/docs)
+- [Polars Documentation](https://docs.pola.rs/)
+- [Radix UI Colors](https://www.radix-ui.com/colors)
+
+## Markup and Tailwind CSS Guidelines
+
+### Keep Markup Simple
+
+- Aim for a maximum nesting depth of 3-4 levels
+- Avoid excessive conditional rendering that creates multiple levels of nesting
+- Use sensible defaults for CSS with minimal override complexity
+
+### Tailwind Best Practices
+
+- Use Tailwind's utility classes directly in HTML/JSX for most styling
+- Extract reusable patterns to components rather than creating custom classes
+- For complex components, consider grouping Tailwind classes with template literals
+- Utilize Tailwind's `@apply` directive sparingly and only for highly reused patterns
+- Create consistent spacing, color and typography systems through Tailwind configuration
+
+## Code Elegance Guidelines
+
+### Simplicity Principles
+
+- Functions should generally be under 20 lines
+- Components should generally be under 150 lines
+- Aim for component props to be under 7 items
+- Use destructuring for cleaner component interfaces
+- Group related state items in meaningful objects
+- Follow the principle of least knowledge (components only know what they need)
