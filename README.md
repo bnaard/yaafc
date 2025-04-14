@@ -1,67 +1,47 @@
-# yaafc
+# YAAFC: Yet Another Absurd File Commander
 
-[![Release](https://img.shields.io/github/v/release/bnaard/yaafc)](https://img.shields.io/github/v/release/bnaard/yaafc)
-[![Build status](https://img.shields.io/github/actions/workflow/status/bnaard/yaafc/main.yml?branch=main)](https://github.com/bnaard/yaafc/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/bnaard/yaafc/branch/main/graph/badge.svg)](https://codecov.io/gh/bnaard/yaafc)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/bnaard/yaafc)](https://img.shields.io/github/commit-activity/m/bnaard/yaafc)
-[![License](https://img.shields.io/github/license/bnaard/yaafc)](https://img.shields.io/github/license/bnaard/yaafc)
+## Features
 
-This is a template repository for Python projects that use uv for their dependency management.
+<!-- Add a list of features here -->
 
-- **Github repository**: <https://github.com/bnaard/yaafc/>
-- **Documentation** <https://bnaard.github.io/yaafc/>
+## Prerequisites
 
-## Getting started with your project
+<!-- Add prerequisites here -->
 
-### 1. Create a New Repository
+## Installation
 
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+1. Clone the repository:
 
-```bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:bnaard/yaafc.git
-git push -u origin main
-```
+   ```bash
+   git clone <repository-url>
+   ```
 
-### 2. Set Up Your Development Environment
+### Docker Setup
 
-Then, install the environment and the pre-commit hooks with
+1. Build the Docker image:
 
-```bash
-make install
-```
+   ```bash
+   docker build -t yaafc .
+   ```
 
-This will also generate your `uv.lock` file
+## Usage
 
-### 3. Run the pre-commit hooks
+<!-- Add usage instructions here -->
 
-Initially, the CI/CD pipeline might be failing due to formatting issues. To resolve those run:
+## Development
 
-```bash
-uv run pre-commit run -a
-```
+### Project Structure
 
-### 4. Commit the changes
+<!-- Add project structure details here -->
 
-Lastly, commit the changes made by the two steps above to your repository.
+### Running Tests
 
-```bash
-git add .
-git commit -m 'Fix formatting issues'
-git push origin main
-```
+<!-- Add test running instructions here -->
 
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+### How It Works
 
-To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
+<!-- Add explanation of how it works here -->
 
-## Releasing a new version
+## License
 
----
-
-Repository initiated with [fpgmaas/cookiecutter-uv](https://github.com/fpgmaas/cookiecutter-uv).
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
