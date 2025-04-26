@@ -9,7 +9,6 @@
 - [ ] Use existing basic basic project and understand page creation and template logic (2025-04-14)
 - [ ] Update README.md with setup and usage instructions (2025-04-14)
 - [ ] Create an initial structure for the mkdocs documentation in /docs using the configuration in mkdocs.yml (2025-04-14)
-- [ ] use the existing file yaafc/ui/table.py and change it as seen fit to implement the requirements in PRD01-file and add them to the project (2025-04-14)
 
 ## Upcoming Tasks
 
@@ -18,5 +17,4 @@
 
 ## Discovered During Work
 
-- [ ] Consider adding a tool for listing available tables
-- [ ] Consider adding a tool for reading table schemas
+- [ ] Refactor/remove unused TableHeader and TableHeaderCell classes if found elsewhere in the codebase (2025-04-15)

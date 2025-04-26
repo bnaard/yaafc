@@ -137,9 +137,45 @@ Use uv for dependency management and poe for task management.
 
 ### Webpages to fetch
 
-- [Reflex Documentation](https://reflex.dev/docs)
+Always fetch and read the following webpages before starting a new task:
+
+- [Reflex Documentation](https://reflex.dev/docs/getting-started/introduction/)
 - [Polars Documentation](https://docs.pola.rs/)
 - [Radix UI Colors](https://www.radix-ui.com/colors)
+
+## Reflex Guidelines
+
+- Create new reflex-based components for this project always in the `yaafc/ui` directory
+- When creating a component, as much as possible use the following blueprint:
+
+```python
+class Table(rx.ComponentState):
+    @classmethod
+    def create(cls, *children, **props) -> rx.Component:
+        return rx.component(
+            cls,
+            *children,
+            **props,
+        )
+
+table = Table.create
+```
+
+- when using a component created in this project, always use the following blueprint:
+
+```python
+import yaafc.ui as ui
+
+table = ui.table()
+```
+
+- Use Reflex state for all app state.
+- Use Chakra UI components for layout and forms.
+- Add docstrings to all public functions.
+- Only comment on complex business logic.
+- Sanitize all user inputs.
+- Lazy-load images and large components.
+- Never expose stack traces in error messages.
 
 ## Markup and Tailwind CSS Guidelines
 
@@ -167,3 +203,8 @@ Use uv for dependency management and poe for task management.
 - Use destructuring for cleaner component interfaces
 - Group related state items in meaningful objects
 - Follow the principle of least knowledge (components only know what they need)
+
+## Implementation Instructions
+
+- **Always read all the following listed project requirements documents** before starting a new task and check the requirements in this file. Implement all requirements in this file in the order of priority. When finished with one requirement, set it's status to "Completed" and add the date of completion. If a requirement is not relevant anymore, set it's status to "Not relevant" and add the date of this decision.
+  - [ ] PRD01_table_polars_dataframe.md

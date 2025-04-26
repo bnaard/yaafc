@@ -24,70 +24,189 @@ Requires-Dist: polars>=1.26.0
 Requires-Dist: reflex>=0.7.2
 Dynamic: license-file
 
-# yaafc
+# YAAFC: Yet Another Absurd File Commander
 
-[![Release](https://img.shields.io/github/v/release/bnaard/yaafc)](https://img.shields.io/github/v/release/bnaard/yaafc)
-[![Build status](https://img.shields.io/github/actions/workflow/status/bnaard/yaafc/main.yml?branch=main)](https://github.com/bnaard/yaafc/actions/workflows/main.yml?query=branch%3Amain)
-[![codecov](https://codecov.io/gh/bnaard/yaafc/branch/main/graph/badge.svg)](https://codecov.io/gh/bnaard/yaafc)
-[![Commit activity](https://img.shields.io/github/commit-activity/m/bnaard/yaafc)](https://img.shields.io/github/commit-activity/m/bnaard/yaafc)
-[![License](https://img.shields.io/github/license/bnaard/yaafc)](https://img.shields.io/github/license/bnaard/yaafc)
+## Features
 
-This is a template repository for Python projects that use uv for their dependency management.
+- Norton Commander-like file management interface
+- User-friendly web-based UI built with reflex.dev
+- Modular and extensible architecture
+- File operations: navigate, copy, move, delete, rename
+- Drag-and-drop functionality for file operations
+- Search functionality for files and directories
+- File previews for images, text files, and other formats
+- Customizable toolbar and keyboard shortcuts
+- Multiple themes and layout customization
+- Profile and settings management
 
-- **Github repository**: <https://github.com/bnaard/yaafc/>
-- **Documentation** <https://bnaard.github.io/yaafc/>
+## Prerequisites
 
-## Getting started with your project
+- Python 3.12 or higher
+- Docker (optional for containerized setup)
+- Node.js (for frontend development, if needed)
 
-### 1. Create a New Repository
+## Installation
 
-First, create a repository on GitHub with the same name as this project, and then run the following commands:
+1. Clone the repository:
 
-```bash
-git init -b main
-git add .
-git commit -m "init commit"
-git remote add origin git@github.com:bnaard/yaafc.git
-git push -u origin main
-```
+   ```bash
+   git clone <repository-url>
+   ```
 
-### 2. Set Up Your Development Environment
+2. Install dependencies:
 
-Then, install the environment and the pre-commit hooks with
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-```bash
-make install
-```
+### Docker Setup
 
-This will also generate your `uv.lock` file
+1. Build the Docker image:
 
-### 3. Run the pre-commit hooks
+   ```bash
+   docker build -t yaafc .
+   ```
 
-Initially, the CI/CD pipeline might be failing due to formatting issues. To resolve those run:
+2. Run the Docker container:
 
-```bash
-uv run pre-commit run -a
-```
+   ```bash
+   docker run -p 8000:8000 yaafc
+   ```
 
-### 4. Commit the changes
+## Usage
 
-Lastly, commit the changes made by the two steps above to your repository.
+1. Start the application:
 
-```bash
-git add .
-git commit -m 'Fix formatting issues'
-git push origin main
-```
+   ```bash
+   python yaafc/yaafc.py
+   ```
 
-You are now ready to start development on your project!
-The CI/CD pipeline will be triggered when you open a pull request, merge to main, or when you create a new release.
+2. Access the web interface at `http://localhost:8000`.
 
-To finalize the set-up for publishing to PyPI, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/publishing/#set-up-for-pypi).
-For activating the automatic documentation with MkDocs, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/mkdocs/#enabling-the-documentation-on-github).
-To enable the code coverage reports, see [here](https://fpgmaas.github.io/cookiecutter-uv/features/codecov/).
+## Development
 
-## Releasing a new version
+### Project Structure
 
----
+- `yaafc/`: Main application package
+  - `components/`: UI components
+  - `config/`: Configuration files
+  - `models/`: Database models
+  - `pages/`: Application pages
+  - `states/`: Global application states
+  - `templates/`: Page templates
+  - `ui/`: UI utilities and widgets
+  - `utilities/`: Helper functions
+- `tests/`: Unit tests
+- `assets/`: Static assets (images, icons, etc.)
+- `docs/`: Documentation files
+- `scripts/`: Development helper scripts
 
-Repository initiated with [fpgmaas/cookiecutter-uv](https://github.com/fpgmaas/cookiecutter-uv).
+### Running Tests
+
+1. Install test dependencies:
+
+   ```bash
+   pip install pytest pytest-cov
+   ```
+
+2. Run tests:
+
+   ```bash
+   pytest --cov=yaafc tests/
+   ```
+
+### Using uv Package Manager
+
+The `uv` package manager is used for dependency management and task execution in this project. To get started:
+
+1. Install `uv`:
+
+   ```bash
+   pip install uv
+   ```
+
+2. Sync dependencies:
+
+   ```bash
+   uv sync
+   ```
+
+3. Run tasks using `uv` commands. For example:
+
+   ```bash
+   uv run reflex run
+   ```
+
+### Using Poe the Poet
+
+`Poe the Poet` is a task runner integrated into this project. It simplifies running common tasks. The available tasks are defined in the `pyproject.toml` file under `[tool.poe.tasks]`.
+
+#### Available Commands
+
+- **Run the application**:
+
+  ```bash
+  poe run
+  ```
+
+- **Install dependencies and pre-commit hooks**:
+
+  ```bash
+  poe install
+  ```
+
+- **Check code quality**:
+
+  ```bash
+  poe check
+  ```
+
+- **Run tests with coverage**:
+
+  ```bash
+  poe test
+  ```
+
+- **Build the project**:
+
+  ```bash
+  poe build
+  ```
+
+- **Clean build artifacts**:
+
+  ```bash
+  poe clean-build
+  ```
+
+- **Test documentation build**:
+
+  ```bash
+  poe docs-test
+  ```
+
+- **Serve documentation locally**:
+
+  ```bash
+  poe docs
+  ```
+
+- **Deploy documentation to GitHub Pages**:
+
+  ```bash
+  poe docs-deploy
+  ```
+
+- **Upgrade dependencies**:
+
+  ```bash
+  poe bump
+  ```
+
+### How It Works
+
+YAAFC is a web-based file commander inspired by Norton Commander. It uses the reflex.dev framework for both backend and frontend, providing a seamless and interactive user experience. The application is designed to be modular, allowing for easy addition of new features and tools.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

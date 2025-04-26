@@ -1,7 +1,0 @@
-# YAAFC Yet Another Absurd FileCommander - Project Requirements Document - Table Polars Dataframe
-
-The following table outlines functional requirements for the project:
-
-| Requirement ID | Description                                                     | User Story                                                                                                                                                                                                                                                    | Expected Behaviour/Outcome                                                                        | Priority | Status      |
-| -------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------- | -------- | ----------- |
-| PRD01          | The system should contain a table-compnent based on rx.compnent | As a developer adding functionality to the project, I want to be able to use a table-component, which is based on rx.component, which uses rx.table basic html-table with rx.foreach and which is capable of showing tabular data held in a polars dataframe. | When using the table component, I should be able to show tabular data held in a polars dataframe. | High     | In Progress |

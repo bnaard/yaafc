@@ -1,6 +1,86 @@
-.states
-*.py[cod]
-__pycache__/
 *.db
-assets/external/
 .web
+.states
+# Added best practices for Python projects
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# C extensions
+*.pyd
+
+# Distribution / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+*.cover
+*.py,cover
+.hypothesis/
+
+# Pytest
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+.dmypy.json.5
+
+# Pyre type checker
+.pyre/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+.env.bak
+.envrc
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.log
+*.tmp
+*.bak
+*.old
+*.orig
+*.rej
+*.sublime-workspace
+*.sublime-project
+
+# External assets
+assets/external/
+
+# Added additional directories to ignore
+.ruff_cache/
+.web/
+.states/
+yaafc.egg-info/

@@ -2,6 +2,7 @@ LICENSE
 README.md
 pyproject.toml
 tests/test_foo.py
+tests/test_table.py
 yaafc.egg-info/PKG-INFO
 yaafc.egg-info/SOURCES.txt
 yaafc.egg-info/dependency_links.txt
