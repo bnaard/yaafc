@@ -2,6 +2,7 @@ from typing import Any
 
 import polars as pl
 import reflex as rx
+from reflex.vars import ArrayVar
 
 
 class TableState(rx.State):
@@ -37,8 +38,26 @@ class TableState(rx.State):
         if self.page > 0:
             self.page -= 1
 
-    def test_update(self):
-        self._df = self._df.update(pl.DataFrame({"Age": [99, None, 42]}))
+
+def table_header_cell(*children, **props) -> rx.Component:
+    """Creates a table header cell with the given label."""
+    return rx.table.column_header_cell(
+        *children,
+        border_right="solid",
+        border_right_color=rx.color("accent", 4),
+        border_right_width="1px",
+        border_bottom="solid",
+        border_bottom_color=rx.color("accent", 4),
+        border_bottom_width="1px",
+        background_color=rx.color("accent", 3),
+        style={"position": "sticky", "top": "0"},
+        **props,
+    )
+
+
+def table_header(columns: ArrayVar[list[str]]) -> rx.Component:
+    """Creates a table header with the given column names."""
+    return (rx.table.header(rx.table.row(rx.foreach(columns, lambda col: table_header_cell(col)))),)
 
 
 def table():
@@ -48,7 +67,7 @@ def table():
     return rx.box(
         rx.box(
             rx.table.root(
-                rx.table.header(rx.table.row(rx.foreach(columns, lambda col: rx.table.column_header_cell(col)))),
+                table_header(columns),
                 rx.table.body(
                     rx.foreach(
                         rows,
@@ -67,7 +86,6 @@ def table():
             rx.button("Previous", on_click=TableState.prev_page, is_disabled=TableState.page == 0),
             rx.text(f"Page {TableState.page + 1} of {TableState.total_pages}"),
             rx.button("Next", on_click=TableState.next_page, is_disabled=TableState.page >= TableState.total_pages - 1),
-            rx.button("Test Update", on_click=TableState.test_update),
             justify="center",
             margin_top="1em",
         ),
