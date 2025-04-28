@@ -3,44 +3,239 @@ from typing import Any
 import polars as pl
 import reflex as rx
 from reflex.vars import ArrayVar
+from reflex_intersection_observer import intersection_observer
 
 
 class TableState(rx.State):
-    # Store the DataFrame as a class variable (not a field)
     _df = pl.DataFrame({
-        "Name": ["Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Grace", "Heidi", "Ivan", "Judy"],
-        "Age": [25, 30, 35, 28, 22, 40, 31, 29, 27, 33],
-        "City": ["NY", "LA", "Chicago", "Boston", "Miami", "Dallas", "Seattle", "Denver", "Austin", "SF"],
+        "Index": list(range(1, 61)),  # 1-based index for 60 rows
+        "Name": [
+            "Alice",
+            "Bob",
+            "Charlie",
+            "David",
+            "Eve",
+            "Frank",
+            "Grace",
+            "Heidi",
+            "Ivan",
+            "Judy",
+            "Karl",
+            "Laura",
+            "Mallory",
+            "Niaj",
+            "Olivia",
+            "Peggy",
+            "Quentin",
+            "Rupert",
+            "Sybil",
+            "Trent",
+            "Uma",
+            "Victor",
+            "Wendy",
+            "Xander",
+            "Yvonne",
+            "Zach",
+            "Aaron",
+            "Bianca",
+            "Carter",
+            "Diana",
+            "Ethan",
+            "Fiona",
+            "Gavin",
+            "Hannah",
+            "Isabel",
+            "Jonas",
+            "Kylie",
+            "Liam",
+            "Mona",
+            "Nolan",
+            "Opal",
+            "Paul",
+            "Quincy",
+            "Rita",
+            "Sam",
+            "Tina",
+            "Ursula",
+            "Vince",
+            "Will",
+            "Xenia",
+            "Yara",
+            "Zane",
+            "Ava",
+            "Ben",
+            "Clara",
+            "Derek",
+            "Elena",
+            "Felix",
+            "Gina",
+            "Henry",
+        ],
+        "Age": [
+            25,
+            30,
+            35,
+            28,
+            22,
+            40,
+            31,
+            29,
+            27,
+            33,
+            26,
+            32,
+            38,
+            24,
+            21,
+            41,
+            34,
+            28,
+            36,
+            39,
+            23,
+            37,
+            29,
+            31,
+            35,
+            30,
+            27,
+            33,
+            25,
+            32,
+            28,
+            34,
+            26,
+            38,
+            24,
+            40,
+            29,
+            31,
+            37,
+            22,
+            39,
+            23,
+            36,
+            35,
+            27,
+            33,
+            25,
+            32,
+            28,
+            34,
+            26,
+            38,
+            24,
+            40,
+            29,
+            31,
+            37,
+            22,
+            39,
+            23,
+        ],
+        "City": [
+            "NY",
+            "LA",
+            "Chicago",
+            "Boston",
+            "Miami",
+            "Dallas",
+            "Seattle",
+            "Denver",
+            "Austin",
+            "SF",
+            "Houston",
+            "Phoenix",
+            "Portland",
+            "Atlanta",
+            "Orlando",
+            "Detroit",
+            "Baltimore",
+            "Cleveland",
+            "Columbus",
+            "Charlotte",
+            "San Diego",
+            "San Jose",
+            "Jacksonville",
+            "Indianapolis",
+            "Fort Worth",
+            "El Paso",
+            "Memphis",
+            "Nashville",
+            "Louisville",
+            "Milwaukee",
+            "Albuquerque",
+            "Tucson",
+            "Fresno",
+            "Sacramento",
+            "Kansas City",
+            "Mesa",
+            "Omaha",
+            "Colorado Springs",
+            "Raleigh",
+            "Long Beach",
+            "Virginia Beach",
+            "Oakland",
+            "Minneapolis",
+            "Tulsa",
+            "Arlington",
+            "Tampa",
+            "New Orleans",
+            "Wichita",
+            "Bakersfield",
+            "Aurora",
+            "Anaheim",
+            "Honolulu",
+            "Santa Ana",
+            "Riverside",
+            "Corpus Christi",
+            "Lexington",
+            "Stockton",
+            "Henderson",
+            "Saint Paul",
+            "St. Louis",
+        ],
     })
 
-    page: int = 0
-    page_size: int = 5
+    rows_loaded: int = 20
+    load_batch_size: int = 5
 
-    @rx.var
-    def total_pages(self) -> int:
-        return (self._df.height + self.page_size - 1) // self.page_size
+    # rows_loaded_count: int = 0
+
+    # def update_rows_loaded(self, rows_loaded: int):
+    #     self.rows_loaded = rows_loaded
+
+    # @rx.event
+    def get_client_rows_loaded_count(self):
+        return [
+            rx.call_script(
+                "window.rows_loaded_count",
+                callback=self.set_rows_loaded,
+            ),
+        ]
 
     @rx.var
     def columns(self) -> list[str]:
         return self._df.columns
 
     @rx.var
-    def page_rows(self) -> list[tuple[Any, ...]]:
-        start = self.page * self.page_size
-        end = start + self.page_size
-        return self._df.rows()[start:end]
+    def visible_rows(self) -> list[tuple[Any, ...]]:
+        self.get_client_rows_loaded_count()
+        return self._df.rows()[: self.rows_loaded]
 
-    def next_page(self):
-        if self.page < self.total_pages - 1:
-            self.page += 1
+    @rx.var
+    def has_more(self) -> bool:
+        return self.rows_loaded < self._df.height
 
-    def prev_page(self):
-        if self.page > 0:
-            self.page -= 1
+    def set_rows_loaded(self, count: int):
+        self.rows_loaded = min(count, self._df.height)
+
+    def load_more_rows(self):
+        if self.has_more:
+            self.rows_loaded = min(self.rows_loaded + self.load_batch_size, self._df.height)
 
 
 def table_header_cell(*children, **props) -> rx.Component:
-    """Creates a table header cell with the given label."""
     return rx.table.column_header_cell(
         *children,
         border_right="solid",
@@ -56,12 +251,13 @@ def table_header_cell(*children, **props) -> rx.Component:
 
 
 def table_header(columns: ArrayVar[list[str]]) -> rx.Component:
-    """Creates a table header with the given column names."""
-    return (rx.table.header(rx.table.row(rx.foreach(columns, lambda col: table_header_cell(col)))),)
+    return rx.table.header(
+        rx.table.row(rx.foreach(columns, lambda col: table_header_cell(col))),
+        # style={"position": "sticky", "top": "0"},
+    )
 
 
 def table_row_cell(*children, **props) -> rx.Component:
-    """Creates a table row cell with the given data."""
     return rx.table.cell(
         *children,
         border_bottom="solid",
@@ -73,7 +269,6 @@ def table_row_cell(*children, **props) -> rx.Component:
 
 
 def table_row(row: ArrayVar[tuple[Any, ...]]) -> rx.Component:
-    """Creates a table row with the given data."""
     return rx.table.row(
         rx.foreach(row, lambda cell: table_row_cell(cell)),
     )
@@ -81,9 +276,35 @@ def table_row(row: ArrayVar[tuple[Any, ...]]) -> rx.Component:
 
 def table():
     columns = TableState.columns
-    rows = TableState.page_rows
+    rows = TableState.visible_rows
 
-    return rx.box(
+    # JavaScript to calculate visible rows and call Reflex event
+    # document.getElementById('rows-loaded-btn').click();
+    js_code = """
+    function updateRowsLoaded() {
+        const tableHeight = window.innerHeight;
+        const rowHeight = 30;
+        const visibleRows = Math.floor(tableHeight / rowHeight);
+        window.rows_loaded_count = visibleRows;
+        console.log('Rows loaded:', visibleRows);
+    }
+    window.addEventListener('resize', updateRowsLoaded);
+    updateRowsLoaded();
+    """
+
+    load_more_observer = intersection_observer(
+        on_intersect=TableState.load_more_rows,
+        once=False,
+        disabled=~TableState.has_more,
+        style={"height": "1px"},
+        client_only=True,
+    )
+
+    return rx.vstack(
+        rx.script(js_code),
+        # rx.button(
+        #     id="rows-loaded-btn", display="none", on_click=TableState.get_client_rows_loaded_count
+        # ),
         rx.box(
             rx.table.root(
                 table_header(columns),
@@ -92,19 +313,34 @@ def table():
                         rows,
                         table_row,
                     ),
+                    rx.cond(
+                        TableState.has_more,
+                        rx.table.row(
+                            table_row_cell("Loading...", load_more_observer),
+                        ),
+                        None,
+                    ),
                 ),
                 width="100%",
-                style={"minWidth": "600px"},  # Ensures table doesn't shrink too much
+                style={"minWidth": "600px"},
+                sticky_header=True,
+                height="90vh",
+                # max_height= "300px",
+                overflow_y="auto",
             ),
-            overflow_x="auto",
+            # Intersection observer at the bottom to trigger loading more rows
+            # intersection_observer(
+            #     on_intersect=TableState.load_more_rows,
+            #     once=False,
+            #     disabled=~TableState.has_more,
+            #     style={"height": "1px"},
+            #     client_only=True,
+            # ),
+            # overflow_x="auto",
             width="100%",
+            # height="90vh",
+            # max_height= "300px",
+            # overflow_y="auto",
+            # style={"overflowY": "auto"},
         ),
-        rx.hstack(
-            rx.button("Previous", on_click=TableState.prev_page, is_disabled=TableState.page == 0),
-            rx.text(f"Page {TableState.page + 1} of {TableState.total_pages}"),
-            rx.button("Next", on_click=TableState.next_page, is_disabled=TableState.page >= TableState.total_pages - 1),
-            justify="center",
-            margin_top="1em",
-        ),
-        width="100%",
     )
