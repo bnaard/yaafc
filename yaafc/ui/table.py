@@ -200,12 +200,6 @@ class TableState(rx.State):
     rows_loaded: int = 20
     load_batch_size: int = 5
 
-    # rows_loaded_count: int = 0
-
-    # def update_rows_loaded(self, rows_loaded: int):
-    #     self.rows_loaded = rows_loaded
-
-    # @rx.event
     def get_client_rows_loaded_count(self):
         return [
             rx.call_script(
@@ -279,19 +273,18 @@ def table():
     rows = TableState.visible_rows
 
     # JavaScript to calculate visible rows and call Reflex event
-    # document.getElementById('rows-loaded-btn').click();
     js_code = """
     function updateRowsLoaded() {
         const tableHeight = window.innerHeight;
         const rowHeight = 30;
         const visibleRows = Math.floor(tableHeight / rowHeight);
         window.rows_loaded_count = visibleRows;
-        console.log('Rows loaded:', visibleRows);
     }
     window.addEventListener('resize', updateRowsLoaded);
     updateRowsLoaded();
     """
 
+    # Intersection observer at the bottom to trigger loading more rows
     load_more_observer = intersection_observer(
         on_intersect=TableState.load_more_rows,
         once=False,
@@ -302,9 +295,6 @@ def table():
 
     return rx.vstack(
         rx.script(js_code),
-        # rx.button(
-        #     id="rows-loaded-btn", display="none", on_click=TableState.get_client_rows_loaded_count
-        # ),
         rx.box(
             rx.table.root(
                 table_header(columns),
@@ -325,22 +315,8 @@ def table():
                 style={"minWidth": "600px"},
                 sticky_header=True,
                 height="90vh",
-                # max_height= "300px",
                 overflow_y="auto",
             ),
-            # Intersection observer at the bottom to trigger loading more rows
-            # intersection_observer(
-            #     on_intersect=TableState.load_more_rows,
-            #     once=False,
-            #     disabled=~TableState.has_more,
-            #     style={"height": "1px"},
-            #     client_only=True,
-            # ),
-            # overflow_x="auto",
             width="100%",
-            # height="90vh",
-            # max_height= "300px",
-            # overflow_y="auto",
-            # style={"overflowY": "auto"},
         ),
     )
