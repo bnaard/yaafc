@@ -1,0 +1,56 @@
+import dataclasses
+
+from reflex.utils import imports
+
+
+@dataclasses.dataclass
+class KeyEvent:
+    key: str = ""
+
+
+def key_event_spec(ev: rx.Var[KeyEvent]) -> tuple[rx.Var[str]]:
+    return (ev.key,)
+
+
+class GlobalHotkeyState(rx.State):
+    key: str = ""
+
+    @rx.event
+    def update_key(self, key):
+        self.key = key
+
+
+class GlobalHotkeyWatcher(rx.Fragment):
+    on_key_down: rx.EventHandler[key_event_spec]
+
+    def add_imports(self) -> imports.ImportDict:
+        return {"react": [imports.ImportVar(tag="useEffect")]}
+
+    def add_hooks(self) -> list[str | rx.Var]:
+        return [
+            """
+            useEffect(() => {
+                const handle_key = %s;
+                document.addEventListener("keydown", handle_key, false);
+                return () => {
+                    document.removeEventListener("keydown", handle_key, false);
+                }
+            })
+            """
+            % str(rx.Var.create(self.event_triggers["on_key_down"]))
+        ]
+
+
+def global_key_demo():
+    return rx.vstack(
+        GlobalHotkeyWatcher.create(
+            keys=["a", "s", "d", "w"],
+            on_key_down=lambda key: rx.cond(
+                rx.Var.create(["a", "s", "d", "w"]).contains(key),
+                GlobalHotkeyState.update_key(key),
+                rx.console_log(key),
+            ),
+        ),
+        rx.text("Press a, s, d or w to trigger an event"),
+        rx.heading(f"Last watched key pressed: {GlobalHotkeyState.key}"),
+    )

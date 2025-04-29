@@ -1,9 +1,12 @@
+import uuid
 from typing import Any
 
 import polars as pl
 import reflex as rx
 from reflex.vars import ArrayVar
 from reflex_intersection_observer import intersection_observer
+
+from yaafc.states.settings import Settings
 
 
 class TableState(rx.State):
@@ -199,6 +202,7 @@ class TableState(rx.State):
 
     rows_loaded: int = 20
     load_batch_size: int = 5
+    widget_id: uuid.UUID = uuid.uuid4()
 
     def get_client_rows_loaded_count(self):
         return [
@@ -247,7 +251,6 @@ def table_header_cell(*children, **props) -> rx.Component:
 def table_header(columns: ArrayVar[list[str]]) -> rx.Component:
     return rx.table.header(
         rx.table.row(rx.foreach(columns, lambda col: table_header_cell(col))),
-        # style={"position": "sticky", "top": "0"},
     )
 
 
@@ -272,7 +275,7 @@ def table():
     columns = TableState.columns
     rows = TableState.visible_rows
 
-    # JavaScript to calculate visible rows and call Reflex event
+    # JavaScript to calculate visible rows
     js_code = """
     function updateRowsLoaded() {
         const tableHeight = window.innerHeight;
@@ -292,6 +295,14 @@ def table():
         style={"height": "1px"},
         client_only=True,
     )
+
+    is_active = Settings.active_widget == TableState.widget_id
+    border_style = {
+        "border": "3px solid",
+        "borderColor": rx.color("accent", 8),
+        "borderRadius": "8px",
+        "boxShadow": f"0 0 8px 2px {rx.color('accent', 5)}",
+    }
 
     return rx.vstack(
         rx.script(js_code),
@@ -318,5 +329,6 @@ def table():
                 overflow_y="auto",
             ),
             width="100%",
+            style=rx.cond(is_active, border_style, {}),
         ),
     )
