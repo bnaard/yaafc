@@ -16,6 +16,7 @@ def template(
     meta: str | None = None,
     script_tags: list[rx.Component] | None = None,
     on_load: rx.EventHandler | list[rx.EventHandler] | None = None,
+    active_slot: int | None = 1,
 ) -> Callable[[Callable[[], rx.Component]], rx.Component]:
     """The template for each page of the app.
 
@@ -42,15 +43,24 @@ def template(
             The template with the page content.
         """
         # Get the meta tags for the page.
-        all_meta = [*default_meta, *(meta or [])]
+        effective_meta = [*default_meta, *(meta or [])]
 
-        templated_page = main_template(page_content) if template == "main" else main_template(page_content)
+        def template_func() -> rx.Component:
+            Settings.active_page_id = route
+            Settings.active_slot = active_slot
+
+            if template is None or template == "main" or template == "default":
+                return main_template(page_content)
+            else:
+                return main_template(page_content)
+
+        templated_page = template_func()
 
         @rx.page(
             route=route,
             title=title,
             description=description,
-            meta=all_meta,
+            meta=effective_meta,
             script_tags=script_tags,
             on_load=on_load,
         )

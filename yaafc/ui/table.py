@@ -1,4 +1,3 @@
-import uuid
 from typing import Any
 
 import polars as pl
@@ -6,12 +5,13 @@ import reflex as rx
 from reflex.vars import ArrayVar
 from reflex_intersection_observer import intersection_observer
 
-from yaafc.states.settings import Settings
+import yaafc.ui as yui
+from yaafc.states.pages_selection import PagesSelectionState
 
 
-class TableState(rx.State):
+class TableComponent(rx.ComponentState):
     _df = pl.DataFrame({
-        "Index": list(range(1, 61)),  # 1-based index for 60 rows
+        "Index": list(range(1, 61)),
         "Name": [
             "Alice",
             "Bob",
@@ -202,7 +202,8 @@ class TableState(rx.State):
 
     rows_loaded: int = 20
     load_batch_size: int = 5
-    widget_id: uuid.UUID = uuid.uuid4()
+    assigned_page_slot: int | None = None
+    active_page_slot: int | None = None
 
     def get_client_rows_loaded_count(self):
         return [
@@ -232,103 +233,114 @@ class TableState(rx.State):
         if self.has_more:
             self.rows_loaded = min(self.rows_loaded + self.load_batch_size, self._df.height)
 
+    def set_page_slot(self, slot: int):
+        self.assigned_page_slot = slot
 
-def table_header_cell(*children, **props) -> rx.Component:
-    return rx.table.column_header_cell(
-        *children,
-        border_right="solid",
-        border_right_color=rx.color("accent", 4),
-        border_right_width="1px",
-        border_bottom="solid",
-        border_bottom_color=rx.color("accent", 4),
-        border_bottom_width="1px",
-        background_color=rx.color("accent", 3),
-        style={"position": "sticky", "top": "0"},
-        **props,
-    )
+    def set_page_id(self, page_id: str):
+        self.page_id = page_id
 
+    @classmethod
+    def table_header_cell(cls, *children, **props) -> rx.Component:
+        return rx.table.column_header_cell(
+            *children,
+            border_right="solid",
+            border_right_color=rx.color("accent", 4),
+            border_right_width="1px",
+            border_bottom="solid",
+            border_bottom_color=rx.color("accent", 4),
+            border_bottom_width="1px",
+            background_color=rx.color("accent", 3),
+            style={"position": "sticky", "top": "0"},
+            **props,
+        )
 
-def table_header(columns: ArrayVar[list[str]]) -> rx.Component:
-    return rx.table.header(
-        rx.table.row(rx.foreach(columns, lambda col: table_header_cell(col))),
-    )
+    @classmethod
+    def table_header(cls, columns: ArrayVar[list[str]]) -> rx.Component:
+        return rx.table.header(
+            rx.table.row(rx.foreach(columns, lambda col: TableComponent.table_header_cell(col))),
+        )
 
+    @classmethod
+    def table_row_cell(cls, *children, **props) -> rx.Component:
+        return rx.table.cell(
+            *children,
+            border_bottom="solid",
+            border_bottom_color=rx.color("accent", 4),
+            border_bottom_width="1px",
+            background_color=rx.color("accent", 2),
+            **props,
+        )
 
-def table_row_cell(*children, **props) -> rx.Component:
-    return rx.table.cell(
-        *children,
-        border_bottom="solid",
-        border_bottom_color=rx.color("accent", 4),
-        border_bottom_width="1px",
-        background_color=rx.color("accent", 2),
-        **props,
-    )
+    @classmethod
+    def table_row(cls, row: ArrayVar[tuple[Any, ...]], **props) -> rx.Component:
+        return rx.table.row(rx.foreach(row, lambda cell: cls.table_row_cell(cell)), **props)
 
+    @classmethod
+    def get_component(cls, page_id: str, slot_id: int, *children, **props) -> rx.Component:
+        columns = cls.columns
+        rows = cls.visible_rows
+        # cls.__fields__["assigned_page_slot"].default = props.pop("assigned_page_slot", cls.assigned_page_slot)
+        # cls.__fields__["page_id"].default = props.pop("page_id", cls.page_id)
+        # cls.__fields__["page_state"].default = props.pop("page_state", cls.page_state)
 
-def table_row(row: ArrayVar[tuple[Any, ...]]) -> rx.Component:
-    return rx.table.row(
-        rx.foreach(row, lambda cell: table_row_cell(cell)),
-    )
+        js_code = """
+        function updateRowsLoaded() {
+            const tableHeight = window.innerHeight;
+            const rowHeight = 30;
+            const visibleRows = Math.floor(tableHeight / rowHeight);
+            window.rows_loaded_count = visibleRows;
+        }
+        window.addEventListener('resize', updateRowsLoaded);
+        updateRowsLoaded();
+        """
 
+        load_more_observer = intersection_observer(
+            on_intersect=cls.load_more_rows,
+            once=False,
+            disabled=~cls.has_more,
+            style={"height": "1px"},
+            client_only=True,
+        )
 
-def table():
-    columns = TableState.columns
-    rows = TableState.visible_rows
+        # is_active = Settings.active_widget == cls.widget_id
+        active_id_style = {
+            "border": "3px solid",
+            "borderColor": rx.color("accent", 8),
+            "borderRadius": "8px",
+            "boxShadow": f"0 0 8px 2px {rx.color('accent', 5)}",
+        }
 
-    # JavaScript to calculate visible rows
-    js_code = """
-    function updateRowsLoaded() {
-        const tableHeight = window.innerHeight;
-        const rowHeight = 30;
-        const visibleRows = Math.floor(tableHeight / rowHeight);
-        window.rows_loaded_count = visibleRows;
-    }
-    window.addEventListener('resize', updateRowsLoaded);
-    updateRowsLoaded();
-    """
-
-    # Intersection observer at the bottom to trigger loading more rows
-    load_more_observer = intersection_observer(
-        on_intersect=TableState.load_more_rows,
-        once=False,
-        disabled=~TableState.has_more,
-        style={"height": "1px"},
-        client_only=True,
-    )
-
-    is_active = Settings.active_widget == TableState.widget_id
-    border_style = {
-        "border": "3px solid",
-        "borderColor": rx.color("accent", 8),
-        "borderRadius": "8px",
-        "boxShadow": f"0 0 8px 2px {rx.color('accent', 5)}",
-    }
-
-    return rx.vstack(
-        rx.script(js_code),
-        rx.box(
-            rx.table.root(
-                table_header(columns),
-                rx.table.body(
-                    rx.foreach(
-                        rows,
-                        table_row,
-                    ),
-                    rx.cond(
-                        TableState.has_more,
-                        rx.table.row(
-                            table_row_cell("Loading...", load_more_observer),
+        return rx.vstack(
+            rx.script(js_code),
+            rx.text(
+                "page_slot=",
+                background=yui.color(yui.INFO),
+                on_click=lambda: PagesSelectionState.set_active_slot_id(page_id, slot_id + 1),
+            ),
+            rx.box(
+                rx.table.root(
+                    cls.table_header(columns),
+                    rx.table.body(
+                        rx.foreach(rows, lambda row: cls.table_row(row)),
+                        rx.cond(
+                            cls.has_more,
+                            rx.table.row(
+                                cls.table_row_cell("Loading...", load_more_observer),
+                            ),
+                            None,
                         ),
-                        None,
                     ),
+                    width="100%",
+                    style={"minWidth": "600px"},
+                    sticky_header=True,
+                    height="90vh",
+                    overflow_y="auto",
                 ),
                 width="100%",
-                style={"minWidth": "600px"},
-                sticky_header=True,
-                height="90vh",
-                overflow_y="auto",
+                style=rx.cond((PagesSelectionState.active_slot_ids.get(page_id) == slot_id), active_id_style, {}),
+                on_click=lambda: PagesSelectionState.set_active_slot_id(page_id, slot_id),
             ),
-            width="100%",
-            style=rx.cond(is_active, border_style, {}),
-        ),
-    )
+        )
+
+
+table = TableComponent.create

@@ -1,5 +1,6 @@
 from ..config.constants import Colors
 from .colors import color
+from .header import header
 from .sidebar import sidebar
 from .table import table
 from .widgets.file_list import file_list
@@ -33,6 +34,7 @@ __all__ = [
     "Colors",
     "color",
     "file_list",
+    "header",
     "sidebar",
     "table",
 ]
