@@ -1,4 +1,5 @@
 from ..config.constants import Colors
+from .card import card_component
 from .colors import color
 from .header import header
 from .sidebar import sidebar
@@ -32,6 +33,7 @@ __all__ = [
     "WARNING",
     "WARNING_CONTENT",
     "Colors",
+    "card_component",
     "color",
     "file_list",
     "header",

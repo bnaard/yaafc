@@ -18,3 +18,4 @@
 ## Discovered During Work
 
 - [ ] Refactor/remove unused TableHeader and TableHeaderCell classes if found elsewhere in the codebase (2025-04-15)
+- [x] Add StateComponent-based CardComponent and update show_card to use it in layout.py (2025-05-09)

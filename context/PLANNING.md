@@ -203,6 +203,10 @@ table = ui.table()
 - Use destructuring for cleaner component interfaces
 - Group related state items in meaningful objects
 - Follow the principle of least knowledge (components only know what they need)
+- Use `isort` to sort imports
+- Use `ruff` to format code
+- Use `mypy` for type checking
+- Always order contents of `__all__` alphabetically
 
 ## Implementation Instructions
 

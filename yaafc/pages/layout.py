@@ -1,51 +1,22 @@
 import reflex as rx
 
+import yaafc.ui as yui
 from yaafc.templates.template import template
-
-
-def show_card() -> rx.Component:
-    return rx.fragment(
-        rx.mobile_only(
-            rx.card(
-                rx.vstack(
-                    rx.icon("plus", color=rx.color("accent", 11), size=25),
-                    align="center",
-                    justify="center",
-                    height="100%",
-                ),
-                height="100%",
-                width="100%",
-                style={
-                    "_hover": {
-                        "filter": "grayscale(50%) brightness(120%) opacity(80%)",
-                    }
-                },
-            ),
-        ),
-        rx.tablet_and_desktop(
-            rx.card(
-                rx.vstack(
-                    rx.icon("plus", color=rx.color("accent", 11), size=50),
-                    align="center",
-                    justify="center",
-                    height="100%",
-                ),
-                height="100%",
-                width="100%",
-                style={
-                    "_hover": {
-                        "filter": "grayscale(50%) brightness(150%) opacity(80%)",
-                    }
-                },
-            ),
-        ),
-    )
 
 
 def show_layout(*components, **props) -> rx.Component:
     return rx.grid(
         *components,
-        rx.foreach(rx.Var.range(16), lambda i: show_card()),
+        # rx.foreach(rx.Var.range(16), lambda i: yui.card_component()),
+        yui.card_component(row_span=1, col_span=1),
+        yui.card_component(row_span=1, col_span=1),
+        yui.card_component(row_span=1, col_span=1),
+        yui.card_component(row_span=1, col_span=1),
+        yui.card_component(row_span=1, col_span=1),
+        yui.card_component(row_span=1, col_span=1),
+        yui.card_component(row_span=1, col_span=1),
+        yui.card_component(row_span=1, col_span=1),
+        yui.card_component(row_span=1, col_span=1),
         gap="1rem",
         grid_template_columns=[
             "1fr",  # 1 column for mobile
