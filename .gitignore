@@ -84,3 +84,4 @@ assets/external/
 .web/
 .states/
 yaafc.egg-info/
+.ropeproject/

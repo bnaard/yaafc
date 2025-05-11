@@ -1,10 +1,6 @@
 import reflex as rx
 
-from yaafc.events import MouseEvent, mouse_event_spec
-
-
-class CardMouseDownWatcher(rx.el.Div):
-    on_mouse_down: rx.EventHandler[mouse_event_spec]
+from yaafc.events import EnhancedEventWatcher, MouseEvent
 
 
 class CardComponent(rx.ComponentState):
@@ -20,8 +16,6 @@ class CardComponent(rx.ComponentState):
             self.set_row_span(2) if self.row_span == 1 else self.set_row_span(1)
         else:
             self.col_span = 2 if self.col_span == 1 else 1
-        # print(f"Row span: {self.row_span}, Column span: {self.col_span}")
-        # yield
 
     @classmethod
     def create(cls, *children, **props) -> rx.Component:
@@ -33,7 +27,7 @@ class CardComponent(rx.ComponentState):
     @classmethod
     def get_component(cls, **props) -> rx.Component:
         return rx.card(
-            CardMouseDownWatcher.create(
+            EnhancedEventWatcher.create(
                 rx.box(
                     rx.vstack(
                         rx.mobile_only(
@@ -46,7 +40,6 @@ class CardComponent(rx.ComponentState):
                         justify="center",
                         height="100%",
                     ),
-                    id="card-mousedown-area",
                     height="100%",
                     width="100%",
                 ),
