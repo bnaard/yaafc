@@ -212,3 +212,7 @@ table = ui.table()
 
 - **Always read all the following listed project requirements documents** before starting a new task and check the requirements in this file. Implement all requirements in this file in the order of priority. When finished with one requirement, set it's status to "Completed" and add the date of completion. If a requirement is not relevant anymore, set it's status to "Not relevant" and add the date of this decision.
   - [ ] PRD01_table_polars_dataframe.md
+
+## Coding Style
+
+- read pyproject.toml and consider the sections [tool.ruff], [tool.ruff.lint] and [tool.ruff.lint.per-file-ignores]. Read the page [Ruff](https://beta.ruff.rs/docs/) for more information about the ruff linter. Follow all the rule settings in the [tool.ruff] sections.

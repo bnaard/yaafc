@@ -146,3 +146,6 @@ class EnhancedEventWatcher(rx.el.Div):
     on_webgl_context: rx.EventHandler[webgl_context_event_spec]
     # Security policy violation
     on_security_policy_violation: rx.EventHandler[security_policy_violation_event_spec]
+
+
+enhanced_event_watcher = EnhancedEventWatcher.create

@@ -28,7 +28,7 @@ from .clipboard_events import (
     PasteEvent,
 )
 from .custom_events import CustomEvent
-from .enhanced_event_watcher import EnhancedEventWatcher
+from .enhanced_event_watcher import EnhancedEventWatcher, enhanced_event_watcher
 from .fetch_form_submit_events import (
     FetchEvent,
     FormData,
@@ -178,4 +178,5 @@ __all__ = [
     "UIEvent",
     "WebGLContextEvent",
     "WheelEvent",
+    "enhanced_event_watcher",
 ]

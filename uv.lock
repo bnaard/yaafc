@@ -316,15 +316,6 @@ wheels = [
 ]
 
 [[package]]
-name = "distro"
-version = "1.9.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/fc/f8/98eea607f65de6527f8a2e8885fc8015d3e6f5775df186e443e0964a11c3/distro-1.9.0.tar.gz", hash = "sha256:2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed", size = 60722, upload_time = "2023-12-24T09:54:32.31Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl", hash = "sha256:7bffd925d65168f85027d8da9af6bddab658135b840670a223589bc0c8ef02b2", size = 20277, upload_time = "2023-12-24T09:54:30.421Z" },
-]
-
-[[package]]
 name = "exceptiongroup"
 version = "1.2.2"
 source = { registry = "https://pypi.org/simple" }
@@ -508,18 +499,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/a9/3e/5aa9a61f7c3c47b0b52a1d930302992229d191bf4bc76447b324b731510a/griffe-1.7.3.tar.gz", hash = "sha256:52ee893c6a3a968b639ace8015bec9d36594961e156e23315c8e8e51401fa50b", size = 395137, upload_time = "2025-04-23T11:29:09.147Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/58/c6/5c20af38c2a57c15d87f7f38bee77d63c1d2a3689f74fefaf35915dd12b2/griffe-1.7.3-py3-none-any.whl", hash = "sha256:c6b3ee30c2f0f17f30bcdef5068d6ab7a2a4f1b8bf1a3e74b56fffd21e1c5f75", size = 129303, upload_time = "2025-04-23T11:29:07.145Z" },
-]
-
-[[package]]
-name = "gunicorn"
-version = "23.0.0"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "packaging" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/34/72/9614c465dc206155d93eff0ca20d42e1e35afc533971379482de953521a4/gunicorn-23.0.0.tar.gz", hash = "sha256:f014447a0101dc57e294f6c18ca6b40227a4c90e9bdb586042628030cba004ec", size = 375031, upload_time = "2024-08-10T20:25:27.378Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/cb/7d/6dac2a6e1eba33ee43f318edbed4ff29151a49b5d37f080aad1e6469bca4/gunicorn-23.0.0-py3-none-any.whl", hash = "sha256:ec400d38950de4dfd418cff8328b2c8faed0edb0d517d3394e457c317908ca4d", size = 85029, upload_time = "2024-08-10T20:25:24.996Z" },
 ]
 
 [[package]]
@@ -1256,14 +1235,13 @@ wheels = [
 
 [[package]]
 name = "reflex"
-version = "0.7.8"
+version = "0.7.10.post1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "alembic" },
-    { name = "distro", marker = "sys_platform == 'linux'" },
+    { name = "click" },
     { name = "fastapi" },
     { name = "granian", extra = ["reload"] },
-    { name = "gunicorn" },
     { name = "httpx" },
     { name = "jinja2" },
     { name = "packaging" },
@@ -1276,19 +1254,17 @@ dependencies = [
     { name = "reflex-hosting-cli" },
     { name = "rich" },
     { name = "sqlmodel" },
-    { name = "typer" },
     { name = "typing-extensions" },
-    { name = "uvicorn" },
     { name = "wrapt" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/bf/50/0042fa13869687ef0d00e9c642bce570dfc1f1fc320cea6087e1de61c7a8/reflex-0.7.8.tar.gz", hash = "sha256:b7d17d8c734238f1d2b744a3a8e46b6410280e2b606909234332e5fa76b82c6d", size = 558376, upload_time = "2025-04-21T19:09:17.488Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/1a/ea/700633289411c4dad1e39bb63ca7b9c2818524bd22adbc14a70975aa5125/reflex-0.7.10.post1.tar.gz", hash = "sha256:b4458ce2ea5346a7840b07a014f8632fb0a02499752505baa841c4fff0a6b792", size = 562820, upload_time = "2025-05-06T20:03:03.784Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/31/a8/29b5c858ad75bba32d9e5630a44deaea76ddec6915a08abb05f2e220aa06/reflex-0.7.8-py3-none-any.whl", hash = "sha256:790d7380299b67b584edc076eb5d8730ec86ef7e885a1d64a2046ff34323b03e", size = 847009, upload_time = "2025-04-21T19:09:15.328Z" },
+    { url = "https://files.pythonhosted.org/packages/37/5f/e4f1b8d294ab2b4199d972eb8b8945fb9804d591e61263e2d90e48fc3d7d/reflex-0.7.10.post1-py3-none-any.whl", hash = "sha256:3035ee05836d980331728540fe84621d17e1d5fb8b9f01449c9c398089a74808", size = 852012, upload_time = "2025-05-06T20:03:01.54Z" },
 ]
 
 [[package]]
 name = "reflex-hosting-cli"
-version = "0.1.45"
+version = "0.1.49"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -1299,9 +1275,9 @@ dependencies = [
     { name = "rich" },
     { name = "tabulate" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/61/b9/a3797cf6ba6e6d67aeb8b6a1bbf25c1368bfa847d58e5cc3152f3855f425/reflex_hosting_cli-0.1.45.tar.gz", hash = "sha256:fbc9341af0147779a87f43534251b8094e1e2266f841754df74d03e202111307", size = 31582, upload_time = "2025-04-25T19:29:37.575Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/8b/16437551c914dd7aae4af7546e634561d47a8d5873734ba0d9a83d1d301a/reflex_hosting_cli-0.1.49.tar.gz", hash = "sha256:708536fe14f15ed02cc67e6dc15f311b000e7117ea0637aa2f8764957b797e44", size = 31688, upload_time = "2025-05-02T00:49:39.634Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/5e/e5/59bc2f1d30088dded4b8f0c601a35681d73f3762c1692de2ad6969650a4d/reflex_hosting_cli-0.1.45-py3-none-any.whl", hash = "sha256:3edba595db101f26349d049f49915336f5ad0d41575b5a7722939252f6a60929", size = 40413, upload_time = "2025-04-25T19:29:35.464Z" },
+    { url = "https://files.pythonhosted.org/packages/aa/97/2d29105da4c88a4b1e90a19f4e3f91cdf245aa0319fd04e45cf2d471cd20/reflex_hosting_cli-0.1.49-py3-none-any.whl", hash = "sha256:ea7d8d6770d2cfb74fce564d918d7a9aadae7499b2dc978774b6bfaf54f6296c", size = 40586, upload_time = "2025-05-02T00:49:38.333Z" },
 ]
 
 [[package]]
@@ -1391,15 +1367,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/bb/71/b6365e6325b3290e14957b2c3a804a529968c77a049b2ed40c095f749707/setuptools-79.0.1.tar.gz", hash = "sha256:128ce7b8f33c3079fd1b067ecbb4051a66e8526e7b65f6cec075dfc650ddfa88", size = 1367909, upload_time = "2025-04-23T22:20:59.241Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/0d/6d/b4752b044bf94cb802d88a888dc7d288baaf77d7910b7dedda74b5ceea0c/setuptools-79.0.1-py3-none-any.whl", hash = "sha256:e147c0549f27767ba362f9da434eab9c5dc0045d5304feb602a0af001089fc51", size = 1256281, upload_time = "2025-04-23T22:20:56.768Z" },
-]
-
-[[package]]
-name = "shellingham"
-version = "1.5.4"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/58/15/8b3609fd3830ef7b27b655beb4b4e9c62313a4e8da8c676e142cc210d58e/shellingham-1.5.4.tar.gz", hash = "sha256:8dbca0739d487e5bd35ab3ca4b36e11c4078f3a234bfce294b0a0291363404de", size = 10310, upload_time = "2023-10-24T04:13:40.426Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/e0/f9/0595336914c5619e5f28a1fb793285925a8cd4b432c9da0a987836c7f822/shellingham-1.5.4-py2.py3-none-any.whl", hash = "sha256:7ecfff8f2fd72616f7481040475a65b2bf8af90a56c89140852d1120324e8686", size = 9755, upload_time = "2023-10-24T04:13:38.866Z" },
 ]
 
 [[package]]
@@ -1587,21 +1554,6 @@ wheels = [
 ]
 
 [[package]]
-name = "typer"
-version = "0.15.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "click" },
-    { name = "rich" },
-    { name = "shellingham" },
-    { name = "typing-extensions" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/8b/6f/3991f0f1c7fcb2df31aef28e0594d8d54b05393a0e4e34c65e475c2a5d41/typer-0.15.2.tar.gz", hash = "sha256:ab2fab47533a813c49fe1f16b1a370fd5819099c00b119e0633df65f22144ba5", size = 100711, upload_time = "2025-02-27T19:17:34.807Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/7f/fc/5b29fea8cee020515ca82cc68e3b8e1e34bb19a3535ad854cac9257b414c/typer-0.15.2-py3-none-any.whl", hash = "sha256:46a499c6107d645a9c13f7ee46c5d5096cae6f5fc57dd11eccbbb9ae3e44ddfc", size = 45061, upload_time = "2025-02-27T19:17:32.111Z" },
-]
-
-[[package]]
 name = "types-python-dateutil"
 version = "2.9.0.20241206"
 source = { registry = "https://pypi.org/simple" }
@@ -1675,20 +1627,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/4e/b5/542483462ec2ff5b7999df9a0541c83fe7302c126caa91d7f067438aa59d/uv-0.6.17-py3-none-win32.whl", hash = "sha256:d4b95d908a86fdab0302ed15435f2bf600527ba6ffc0611dee4c4892ae0cf948", size = 16502778, upload_time = "2025-04-25T18:51:55.768Z" },
     { url = "https://files.pythonhosted.org/packages/cd/ca/b780d79df46a775cf7f725084dde2d1c7b299d176467822dce92361f4455/uv-0.6.17-py3-none-win_amd64.whl", hash = "sha256:b815d20ffd1ad6cd872227d1f92a29311ba27c519bb8c541e75125496d129e7d", size = 17978928, upload_time = "2025-04-25T18:51:59.382Z" },
     { url = "https://files.pythonhosted.org/packages/60/82/103134de796511b1dd33412cc5e6c650ca504116db8890b36f16ac938d06/uv-0.6.17-py3-none-win_arm64.whl", hash = "sha256:a1117c3787f370b751e01625ee373d53058a5794bb627722d24e98e1c674da21", size = 16679202, upload_time = "2025-04-25T18:52:02.594Z" },
-]
-
-[[package]]
-name = "uvicorn"
-version = "0.34.2"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "click" },
-    { name = "h11" },
-    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/a6/ae/9bbb19b9e1c450cf9ecaef06463e40234d98d95bf572fab11b4f19ae5ded/uvicorn-0.34.2.tar.gz", hash = "sha256:0e929828f6186353a80b58ea719861d2629d766293b6d19baf086ba31d4f3328", size = 76815, upload_time = "2025-04-19T06:02:50.101Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/b1/4b/4cef6ce21a2aaca9d852a6e84ef4f135d99fcd74fa75105e2fc0c8308acd/uvicorn-0.34.2-py3-none-any.whl", hash = "sha256:deb49af569084536d269fe0a6d67e3754f104cf03aba7c11c40f01aadf33c403", size = 62483, upload_time = "2025-04-19T06:02:48.42Z" },
 ]
 
 [[package]]
@@ -1907,7 +1845,7 @@ dev = [
 requires-dist = [
     { name = "arrow", specifier = ">=1.3.0" },
     { name = "polars", specifier = ">=1.26.0" },
-    { name = "reflex", specifier = ">=0.7.2" },
+    { name = "reflex", specifier = ">=0.7.10" },
     { name = "reflex-intersection-observer", specifier = ">=0.0.8" },
 ]
 

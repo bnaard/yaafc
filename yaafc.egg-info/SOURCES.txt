@@ -1,7 +1,10 @@
 LICENSE
 README.md
 pyproject.toml
+tests/test_card.py
+tests/test_events.py
 tests/test_table.py
+tests/test_widget_stack.py
 yaafc.egg-info/PKG-INFO
 yaafc.egg-info/SOURCES.txt
 yaafc.egg-info/dependency_links.txt
